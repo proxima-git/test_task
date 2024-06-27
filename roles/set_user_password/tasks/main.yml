@@ -1,0 +1,19 @@
+---
+# Укажем переменные
+- name: include vars
+  include_vars:
+    file: "../vars/user1.yml"
+
+
+# Установим пароль пользователю.
+# Если пользователя не существует в системе, модуль его создаст
+- name: Set password for user
+  user:
+    name: "{{ username }}"
+    state: present
+    shell: /bin/bash
+    password: "{{ user_password | password_hash('sha512') }}"
+
+# Установим пользователю флаг необходимости смены пароля при первом входе в систему.
+- name: Force user to change password
+  shell: chage -d 0 "{{ username }}"

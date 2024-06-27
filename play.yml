@@ -1,0 +1,8 @@
+---
+# Плейбук, запускающий роль "set_user_password"
+- name: Run role - set_user_password
+  hosts: localhost
+  become: yes
+
+  roles:
+    - set_user_password
